@@ -1,7 +1,3 @@
 .root {
-	-fx-base: #444444;
-}
-
-#moireePaneBackground {
-	-fx-fill: #bbbbbb;
+	-fx-base: #bbbbbb;
 }

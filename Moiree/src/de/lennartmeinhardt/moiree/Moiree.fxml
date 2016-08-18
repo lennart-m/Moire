@@ -26,7 +26,6 @@
 	minHeight="600" fx:controller="de.lennartmeinhardt.moiree.MoireeController">
 	<center>
 		<StackPane fx:id="moireePane">
-			<Rectangle fx:id="moireePaneBackground" />
 			<ImageView fx:id="backgroundView" />
 			<ImageView fx:id="transformedView" />
 		</StackPane>

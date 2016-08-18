@@ -28,7 +28,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Window;
 
 /**
@@ -62,7 +61,6 @@ public class MoireeController implements Initializable {
 	@FXML private IntValueSetup pixelSizeSetup;
 	
 	@FXML private CheckBox commonScalingCheckBox;
-	@FXML private Rectangle moireePaneBackground;
 	
 	private final BooleanProperty commonScalingProperty = new SimpleBooleanProperty();
 	private final DoubleProperty densityProperty = new SimpleDoubleProperty();
@@ -102,9 +100,6 @@ public class MoireeController implements Initializable {
 				xyScalingsControlsPane.toFront();
 		});
 		
-		moireePaneBackground.widthProperty().bind(moireePane.widthProperty());
-		moireePaneBackground.heightProperty().bind(moireePane.heightProperty());
-
 		scalingXSetup.managedProperty().bind(scalingXSetup.visibleProperty());
 		scalingYSetup.managedProperty().bind(scalingYSetup.visibleProperty());
 		
