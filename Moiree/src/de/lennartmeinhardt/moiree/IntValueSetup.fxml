@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="TitledPane"
+	collapsible="false">
+	<HBox maxWidth="Infinity" spacing="10">
+		<Button fx:id="minusButton" onAction="#minusButtonClicked"
+			minWidth="50" text="%minusButton" />
+		<Label fx:id="valueLabel" maxHeight="Infinity" HBox.hgrow="ALWAYS" alignment="BASELINE_CENTER"
+			maxWidth="Infinity" />
+		<Button fx:id="plusButton" onAction="#plusButtonClicked"
+			minWidth="50" text="%plusButton" />
+		<Button fx:id="resetButton" onAction="#resetButtonClicked"
+			maxWidth="Infinity" maxHeight="Infinity" HBox.hgrow="NEVER" text="%resetButton" />
+	</HBox>
+</fx:root>
