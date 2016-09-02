@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.Node?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -12,15 +8,13 @@
 <?import javafx.scene.control.TitledPane?>
 <?import de.lennartmeinhardt.moiree.DoubleValueSetup?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.geometry.Insets?>
 <?import de.lennartmeinhardt.moiree.IntValueSetup?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" minWidth="800"
 	minHeight="600" fx:controller="de.lennartmeinhardt.moiree.MoireeController">
@@ -39,6 +33,10 @@
 				</padding>
 				<TitledPane text="%imageSetupTitle">
 					<VBox spacing="10">
+						<HBox spacing="10">
+							<Label text="%imageMode" HBox.hgrow="SOMETIMES" maxHeight="Infinity" />
+							<ComboBox fx:id="moireeModeCombobox" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+						</HBox>
 						<DoubleValueSetup text="%pixelDensityTitle"
 							fx:id="densitySetup" blockIncrement=".05" minValue="0" maxValue="1" />
 						<IntValueSetup text="%pixelSizeTitle" fx:id="pixelSizeSetup"

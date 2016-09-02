@@ -1,7 +1,6 @@
 package de.lennartmeinhardt.moiree;
 
 import java.net.URL;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.Bindings;
@@ -20,10 +19,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -39,9 +37,6 @@ public class MoireeController implements Initializable {
 	
 	private static final int IMAGE_WIDTH = 1000;
 	private static final int IMAGE_HEIGHT = 1000;
-	
-	private static final int BLACK = 0xff << 24;
-	private static final int TRANSPARENT = 0;
 
 	@FXML private StackPane moireePane;
 	
@@ -62,6 +57,8 @@ public class MoireeController implements Initializable {
 	
 	@FXML private CheckBox commonScalingCheckBox;
 	
+	@FXML private ComboBox<NamedMoireeImageMode> moireeModeCombobox;
+	
 	private final BooleanProperty commonScalingProperty = new SimpleBooleanProperty();
 	private final DoubleProperty densityProperty = new SimpleDoubleProperty();
 	private final IntegerProperty pixelSizeProperty = new SimpleIntegerProperty();
@@ -75,6 +72,12 @@ public class MoireeController implements Initializable {
 	private double startX, startY;
 	private double lastX, lastY;
 	
+
+	private static final String KEY_MODE_RANDOM = "modeRandom";
+	private static final String KEY_MODE_SQUARES = "modeSquares";
+	private static final String KEY_MODE_TRIANGLES = "modeTriangles";
+	private static final String KEY_MODE_HORIZONAL_LINES = "modeHorizontalLines";
+	
 	
 	@FXML private void newImageClicked(ActionEvent ev) {
 		recalculateImage();
@@ -84,7 +87,7 @@ public class MoireeController implements Initializable {
 	 * Create a new image.
 	 */
 	private void recalculateImage() {
-		drawToImage(image, densityProperty.get(), pixelSizeProperty.get());
+		drawToImage();
 		backgroundView.setImage(image);
 		transformedView.setImage(image);
 	}
@@ -118,24 +121,36 @@ public class MoireeController implements Initializable {
 		transformedView.scaleYProperty().bind(scaleYBinding);
 		
 		densitySetup.valueProperty().bindBidirectional(densityProperty);
-		
 		pixelSizeSetup.valueProperty().bindBidirectional(pixelSizeProperty);
 		
-		loadMoireeOptions();
+		// setup image mode combo box
+		NamedMoireeImageMode randomMode = new NamedMoireeImageMode(KEY_MODE_RANDOM, resources);
+		moireeModeCombobox.getItems().addAll(
+				randomMode,
+				new NamedMoireeImageMode(KEY_MODE_SQUARES, resources),
+				new NamedMoireeImageMode(KEY_MODE_TRIANGLES, resources),
+				new NamedMoireeImageMode(KEY_MODE_HORIZONAL_LINES, resources)
+		);
+		
+		// disable density setup if random isn't selected
+		densitySetup.disableProperty().bind(moireeModeCombobox.valueProperty().isNotEqualTo(randomMode));
+		// collapse density setup if random isn't selected
+		moireeModeCombobox.valueProperty().addListener(e -> {
+			densitySetup.setCollapsible(true);
+			densitySetup.setExpanded(moireeModeCombobox.getValue().equals(randomMode));
+			densitySetup.setCollapsible(false);
+		});
 
-		densityProperty.addListener(e -> recalculateImage());
-		pixelSizeProperty.addListener(e -> recalculateImage());
-		
+		loadMoireeOptions();
 		initMouseHandlers();
-		
 		recalculateImage();
 	}
-	
+
 	private void initMouseHandlers() {
 		// common scaling on scroll
 		moireePane.setOnScroll(e -> {
 			if(commonScalingProperty.get()) {
-				double scale = Math.max(commonScalingSetup.getValue() + e.getTextDeltaY() / 100, 0);
+				double scale = Math.max(commonScalingSetup.getValue() + e.getTextDeltaY() / 600, 0);
 				commonScalingSetup.setValue(scale);
 			}
 		});
@@ -190,6 +205,7 @@ public class MoireeController implements Initializable {
 		preferences.initPixelSizeSetup(pixelSizeSetup);
 		preferences.initCommonScalingSetup(commonScalingSetup);
 		commonScalingProperty.set(preferences.isUseCommonScaling());
+		moireeModeCombobox.getSelectionModel().select(preferences.getImageModeIndex());
 	}
 	
 	private void storeMoireeOptions() {
@@ -202,6 +218,7 @@ public class MoireeController implements Initializable {
 		preferences.setPixelSize(pixelSizeProperty.get());
 		preferences.setUseCommonScaling(commonScalingProperty.get());
 		preferences.setCommonScaling(commonScalingSetup.getValue());
+		preferences.setImageModeIndex(moireeModeCombobox.getSelectionModel().getSelectedIndex());
 	}
 	
 	public void storeToPreferences() {
@@ -239,38 +256,56 @@ public class MoireeController implements Initializable {
 		scene.getRoot().setDisable(false);
 	}
 	
+	
+	private void drawToImage() {
+		switch(moireeModeCombobox.getValue().key) {
+		case KEY_MODE_RANDOM:
+			ImageDrawer.drawRandomPixelsToImage(image, densityProperty.get(), pixelSizeProperty.get());
+			break;
+		case KEY_MODE_SQUARES:
+			ImageDrawer.drawCheckerboardToImage(image, pixelSizeProperty.get());
+			break;
+		case KEY_MODE_TRIANGLES:
+			ImageDrawer.drawTrianglesToImage(image, pixelSizeProperty.get());
+			break;
+		case KEY_MODE_HORIZONAL_LINES:
+			ImageDrawer.drawHorizontalLinesToImage(image, pixelSizeProperty.get());
+			break;
+		}
+	}
+	
+	
 	/**
-	 * Create the base moiré image with given density and pixel size.
+	 * Simple object to use in combo box. "key" is the internal entry's name, "name" is the entry's name from a resource bundle.
 	 * 
-	 * @param image the image to write to
-	 * @param density the pixel density
-	 * @param size the pixel size
+	 * @author Lennart Meinhardt
 	 */
-	private static void drawToImage(WritableImage image, double density, int size) {
-		PixelWriter writer = image.getPixelWriter();
-		PixelReader reader = image.getPixelReader();
-		double width = image.getWidth();
-		double height = image.getHeight();
+	private class NamedMoireeImageMode {
+		public final String key;
+		public final String name;
 		
-		Random random = new Random();
-		int argb = 0;
-		for(int x = 0; x < width; x++) {
-			for(int y = 0; y < height; y++) {
-				int offsetX = x % size;
-				int offsetY = y % size;
-				if(offsetX == 0 && offsetY == 0) {
-					if(random.nextDouble() < density)
-						argb = BLACK;
-					else
-						argb = TRANSPARENT;
-				} else {
-					int tempX = x - offsetX;
-					int tempY = y - offsetY;
-					argb = reader.getArgb(tempX, tempY);
-				}
-				
-				writer.setArgb(x, y, argb);
-			}
+		public NamedMoireeImageMode(String key, String name) {
+			this.key = key;
+			this.name = name;
+		}
+		
+		public NamedMoireeImageMode(String key, ResourceBundle resources) {
+			this(key, resources.getString(key));
+		}
+		
+		@Override public String toString() {
+			return name;
+		}
+		
+		@Override public boolean equals(Object obj) {
+			if(! (obj instanceof NamedMoireeImageMode))
+				return false;
+			else
+				return this.key.equals(((NamedMoireeImageMode) obj).key);
+		}
+		
+		@Override public int hashCode() {
+			return key.hashCode();
 		}
 	}
 }

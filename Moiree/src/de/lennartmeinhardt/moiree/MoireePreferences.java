@@ -12,6 +12,7 @@ public class MoireePreferences {
 	private static final boolean DEF_USE_COMMON_SCALING = true;
 	private static final double DEF_SCALING_X = 1.0;
 	private static final double DEF_SCALING_Y = 1.0;
+	private static final int DEF_IMAGE_MODE_INDEX = 0;
 
 	private static final String KEY_PIXEL_DENSITY = "pixelDensity";
 	private static final String KEY_PIXEL_SIZE = "pixelSize";
@@ -22,6 +23,7 @@ public class MoireePreferences {
 	private static final String KEY_USE_COMMON_SCALING = "transformUseCommonScaling";
 	private static final String KEY_SCALING_X = "transformScalingX";
 	private static final String KEY_SCALING_Y = "transformScalingY";
+	private static final String KEY_IMAGE_MODE_INDEX = "imageModeIndex";
 	
 	private final Preferences preferences;
 
@@ -126,5 +128,12 @@ public class MoireePreferences {
 	public void initPixelSizeSetup(IntValueSetup setup) {
 		setup.setValue(this.getPixelSize());
 		setup.setDefaultValue(DEF_PIXEL_SIZE);
+	}
+	
+	public int getImageModeIndex() {
+		return this.preferences.getInt(KEY_IMAGE_MODE_INDEX, DEF_IMAGE_MODE_INDEX);
+	}
+	public void setImageModeIndex(int value) {
+		this.preferences.putInt(KEY_IMAGE_MODE_INDEX, value);
 	}
 }
