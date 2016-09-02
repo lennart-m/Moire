@@ -26,7 +26,6 @@ public class ImageDrawer {
 	 * @param size the pixel size
 	 */
 	public static void drawCheckerboardToImage(WritableImage image, int size) {
-		System.out.println("checkerboard " + size);
 		PixelWriter writer = image.getPixelWriter();
 		double width = image.getWidth();
 		double height = image.getHeight();
