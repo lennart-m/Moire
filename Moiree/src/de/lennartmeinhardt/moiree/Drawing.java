@@ -186,7 +186,7 @@ public class Drawing {
 	 * @param settings the image settings
 	 */
 	public static void drawRandomPixelsToImage(WritableImage image, ImageSettings settings) {
-		drawRandomPixelsToImage(image, settings.getPixelDensity(), settings.getPixelSize());
+		drawRandomPixelsToImage(image, settings.getPixelDensity() / 100, settings.getPixelSize());
 	}
 	
 	/**

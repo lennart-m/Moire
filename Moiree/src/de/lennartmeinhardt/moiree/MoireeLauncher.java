@@ -2,6 +2,8 @@ package de.lennartmeinhardt.moiree;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -77,6 +79,16 @@ public class MoireeLauncher extends Application {
 	
 	
 	public static void main(String[] args) {
+//		resetPreferences();
 		launch(args);
+	}
+	
+	static void resetPreferences() {
+		Preferences p = Preferences.userNodeForPackage(MoireeLauncher.class);
+		try {
+			p.clear();
+		} catch (BackingStoreException ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 }
