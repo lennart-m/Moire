@@ -3,7 +3,7 @@ package de.lennartmeinhardt.moiree;
 import java.util.prefs.Preferences;
 
 /**
- * Helper for loading and saving window dimensions.
+ * Helper for loading and saving window dimensions to preferences.
  * 
  * @author Lennart Meinhardt
  */
@@ -13,16 +13,24 @@ public class WindowPreferences {
 	private static final String KEY_WINDOW_HEIGHT = "windowHeight";
 	private static final String PREF_WINDOW_MAXIMIZED = "windowMaximized";
 
+	// the preferences object to use
 	private final Preferences preferences;
 	
 	
+	/**
+	 * Create a new {@link WindowPreferences} with default preferences.
+	 */
 	public WindowPreferences() {
 		this(Preferences.userNodeForPackage(WindowPreferences.class));
 	}
 	
+	/**
+	 * Create a new {@link WindowPreferences} with given preferences.
+	 */
 	public WindowPreferences(Preferences preferences) {
 		this.preferences = preferences;
 	}
+	
 	
 	public double getWindowWidth(double def) {
 		return preferences.getDouble(KEY_WINDOW_WIDTH, def);
@@ -38,7 +46,7 @@ public class WindowPreferences {
 		preferences.putDouble(KEY_WINDOW_HEIGHT, value);
 	}
 	
-	public boolean getWindowMaximized(boolean def) {
+	public boolean isWindowMaximized(boolean def) {
 		return preferences.getBoolean(PREF_WINDOW_MAXIMIZED, def);
 	}
 	public void setWindowMaximized(boolean value) {

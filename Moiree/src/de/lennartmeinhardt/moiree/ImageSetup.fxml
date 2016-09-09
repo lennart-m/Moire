@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import de.lennartmeinhardt.moiree.ParserTextField?>
+
+<GridPane hgap="10" vgap="5" xmlns:fx="http://javafx.com/fxml/1"
+	fx:id="imageSetupGrid" fx:controller="de.lennartmeinhardt.moiree.ImageSetupController">
+	<columnConstraints>
+		<ColumnConstraints hgrow="SOMETIMES" />
+		<ColumnConstraints hgrow="SOMETIMES" />
+	</columnConstraints>
+	<children>
+		<Label text="%imageMode" />
+		<ComboBox fx:id="moireeModeCombobox" GridPane.columnIndex="1"
+			maxWidth="Infinity" />
+		<Label text="%widthLabel" GridPane.rowIndex="1" />
+		<ParserTextField text="1000" fx:id="widthInput"
+			GridPane.columnIndex="1" GridPane.rowIndex="1" />
+		<Label text="%heightLabel" GridPane.rowIndex="2" />
+		<ParserTextField text="1000" fx:id="heightInput"
+			GridPane.columnIndex="1" GridPane.rowIndex="2" />
+		<Label text="%pixelSizeLabel" GridPane.rowIndex="3" />
+		<ParserTextField text="1" fx:id="pixelSizeInput"
+			GridPane.columnIndex="1" GridPane.rowIndex="3" />
+		<Label text="%pixelDensityLabel" GridPane.rowIndex="4"
+			fx:id="pixelDensityLabel" />
+		<ParserTextField text="20" fx:id="pixelDensityInput"
+			GridPane.columnIndex="1" GridPane.rowIndex="4" />
+	</children>
+</GridPane>

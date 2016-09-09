@@ -13,7 +13,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
-public class ImageDrawer {
+public class Drawing {
 	
 	private static final int ARGB_BLACK = 0xff << 24;
 	private static final int ARGB_TRANSPARENT = 0;
@@ -42,6 +42,15 @@ public class ImageDrawer {
 			}
 		}
 	}
+	/**
+	 * Draw the checkerboard moiré image with given image settings.
+	 * 
+	 * @param image the image to write to
+	 * @param settings the image settings
+	 */
+	public static void drawCheckerboardToImage(WritableImage image, ImageSettings settings) {
+		drawCheckerboardToImage(image, settings.getPixelSize());
+	}
 	
 	/**
 	 * Draw the horizontal lines moiré image with given pixel size.
@@ -65,6 +74,15 @@ public class ImageDrawer {
 				writer.setArgb(x, y, argb);
 			}
 		}
+	}
+	/**
+	 * Draw the horizontal lines moiré image with given image settings.
+	 * 
+	 * @param image the image to write to
+	 * @param settings the image settings
+	 */
+	public static void drawHorizontalLinesToImage(WritableImage image, ImageSettings settings) {
+		drawHorizontalLinesToImage(image, settings.getPixelSize());
 	}
 
 	/**
@@ -98,6 +116,15 @@ public class ImageDrawer {
 		Rectangle bounds = new Rectangle(width, height);
 		bounds.setFill(imagePattern);
 		bounds.snapshot(params, image);
+	}
+	/**
+	 * Draw the triangles moiré image with given image settings.
+	 * 
+	 * @param image the image to write to
+	 * @param settings the image settings
+	 */
+	public static void drawTrianglesToImage(WritableImage image, ImageSettings settings) {
+		drawTrianglesToImage(image, settings.getPixelSize());
 	}
 	
 	/**
@@ -152,6 +179,15 @@ public class ImageDrawer {
 			}
 		}
 	}
+	/**
+	 * Draw the random moiré image with given image settings.
+	 * 
+	 * @param image the image to write to
+	 * @param settings the image settings
+	 */
+	public static void drawRandomPixelsToImage(WritableImage image, ImageSettings settings) {
+		drawRandomPixelsToImage(image, settings.getPixelDensity(), settings.getPixelSize());
+	}
 	
 	/**
 	 * Draw the diagonal lines moiré image with given pixel size.
@@ -176,9 +212,18 @@ public class ImageDrawer {
 			}
 		}
 	}
+	/**
+	 * Draw the diagonal lines moiré image with given image settings.
+	 * 
+	 * @param image the image to write to
+	 * @param settings the image settings
+	 */
+	public static void drawDiagonalLinesToImage(WritableImage image, ImageSettings settings) {
+		drawDiagonalLinesToImage(image, settings.getPixelSize());
+	}
 	
 
 	// no instances
-	private ImageDrawer() {
+	private Drawing() {
 	}
 }

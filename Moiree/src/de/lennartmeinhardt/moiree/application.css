@@ -1,3 +1,16 @@
 .root {
-	-fx-base: #bbbbbb;
+	-fx-base: #cccccc;
+}
+
+.parser-text-field:focused:parsed {
+	-fx-base: rgba(0, 255, 0, 1);
+}
+
+.parser-text-field:focused:unparsed {
+	-fx-base: rgba(255, 0, 0, 1);
+}
+
+
+#imageSetupGrid .parser-text-field:unparsed {
+	-fx-base: rgba(255, 0, 0, 1);
 }

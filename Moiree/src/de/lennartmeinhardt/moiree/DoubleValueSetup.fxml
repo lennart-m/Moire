@@ -6,16 +6,22 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
+<?import de.lennartmeinhardt.moiree.ParserTextField?>
 
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="TitledPane"
 	collapsible="false">
-	<VBox spacing="10">
-		<HBox maxWidth="Infinity" spacing="10">
-			<Label fx:id="valueLabel" maxHeight="Infinity" HBox.hgrow="ALWAYS"
-				maxWidth="Infinity" />
-			<Button fx:id="resetButton" onAction="#resetButtonClicked"
-				maxWidth="Infinity" maxHeight="Infinity" HBox.hgrow="NEVER" text="%resetButton" />
-		</HBox>
-		<Slider fx:id="valueSlider" maxHeight="Infinity" />
-	</VBox>
+	<content>
+		<VBox spacing="10">
+			<HBox spacing="10" maxWidth="Infinity">
+				<Slider fx:id="valueSlider" maxHeight="Infinity" HBox.hgrow="ALWAYS" />
+			</HBox>
+			<HBox maxWidth="Infinity" spacing="10" alignment="BASELINE_CENTER">
+				<Label fx:id="valueLabel" HBox.hgrow="SOMETIMES" minWidth="50" />
+				<ParserTextField fx:id="valueInput" HBox.hgrow="SOMETIMES"
+					maxWidth="Infinity" />
+				<Button fx:id="resetButton" onAction="#onResetButtonClicked"
+					maxWidth="Infinity" HBox.hgrow="SOMETIMES" text="%resetButton" />
+			</HBox>
+		</VBox>
+	</content>
 </fx:root>

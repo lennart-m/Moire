@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TitledPane?>
+<?import de.lennartmeinhardt.moiree.DoubleValueSetup?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Button?>
+
+<TitledPane xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="de.lennartmeinhardt.moiree.TransformationSetupController"
+	text="%transSetupTitle" fx:id="root" collapsible="false">
+	<VBox spacing="10">
+		<DoubleValueSetup text="%rotationTitle" fx:id="rotateSetup"
+			defaultValue="0" blockIncrement="1" minValue="-180" maxValue="180" />
+		<DoubleValueSetup text="%xTranslateTitle" fx:id="translateXSetup"
+			defaultValue="0" blockIncrement="1" minValue="-100" maxValue="100" />
+		<DoubleValueSetup text="%yTranslateTitle" fx:id="translateYSetup"
+			defaultValue="0" blockIncrement="1" minValue="-100" maxValue="100" />
+		<CheckBox text="%commScaling" fx:id="useCommonScaleCheckBox" />
+		<DoubleValueSetup text="%scalingTitle" fx:id="commonScaleSetup"
+			defaultValue="1" blockIncrement="1" minValue="0" maxValue="2" />
+		<DoubleValueSetup text="%xScalingTitle" fx:id="scaleXSetup"
+			defaultValue="1" blockIncrement="1" minValue="0" maxValue="2" />
+		<DoubleValueSetup text="%yScalingTitle" fx:id="scaleYSetup"
+			defaultValue="1" blockIncrement="1" minValue="0" maxValue="2" />
+		<HBox alignment="CENTER" spacing="10">
+			<CheckBox fx:id="enableAnimationsCheckbox" text="%animations"
+				selected="true" maxWidth="Infinity" HBox.hgrow="SOMETIMES" />
+			<Button text="%resetAllButton" onAction="#onResetTransformationClicked"
+				maxWidth="Infinity" HBox.hgrow="SOMETIMES" alignment="CENTER" />
+		</HBox>
+	</VBox>
+</TitledPane>
