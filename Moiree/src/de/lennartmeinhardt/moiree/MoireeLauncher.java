@@ -29,7 +29,7 @@ public class MoireeLauncher extends Application {
 	
 	@Override public void start(Stage primaryStage) throws Exception {
 		// load the localization
-//		Locale.setDefault(new Locale(""));
+//		java.util.Locale.setDefault(new java.util.Locale(""));
 		ResourceBundle resources = ResourceBundle.getBundle("de.lennartmeinhardt.moiree.bundles.Moiree");
 		
 		Parent root;
