@@ -20,7 +20,7 @@ public class PreferencesHelper {
 	private static final String KEY_SCALING_X = "transformScalingX";
 	private static final String KEY_SCALING_Y = "transformScalingY";
 	// image setup
-	private static final String KEY_PIXEL_DENSITY = "pixelDensity";
+	private static final String KEY_PIXEL_DENSITY = "pixelDensityPercents";
 	private static final String KEY_PIXEL_SIZE = "pixelSize";
 	private static final String KEY_IMAGE_MODE_INDEX = "imageModeIndex";
 	private static final String KEY_IMAGE_WIDTH = "imageWidth";
