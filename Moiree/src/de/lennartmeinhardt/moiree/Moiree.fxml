@@ -31,13 +31,13 @@
 		StackPane.alignment="CENTER" rotate="90" />
 	<fx:include source="TransformationSetup.fxml" maxWidth="400"
 		minHeight="0" collapsible="true" StackPane.alignment="TOP_RIGHT"
-		opacity=".9" fx:id="transformationSetup" text="%transSetupTitle">
+		opacity=".95" fx:id="transformationSetup" text="%transSetupTitle">
 		<padding>
 			<Insets left="10" right="10" top="10" bottom="10" />
 		</padding>
 	</fx:include>
 	<TitledPane StackPane.alignment="TOP_LEFT" text="%imageTitle"
-		opacity=".9" minHeight="0" fx:id="imagePane" maxWidth="400">
+		opacity=".95" minHeight="0" fx:id="imagePane" maxWidth="400">
 		<padding>
 			<Insets left="10" right="10" top="10" bottom="10" />
 		</padding>
