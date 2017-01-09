@@ -10,4 +10,4 @@ Mouse inputs on the Moiré image are handled and so the transformation may be ch
 - **scaling**: scrolling the mouse wheel results in a common scaling of the x and y directions
 - **scaling x and y differently**: holding the middle mouse button and moving the mouse does change the x and y scaling values
 
-![Program screenshot](https://www.dropbox.com/s/ffzugz03xiq4yld/Screenshot-v2.0.png?dl=0 "Program screenshot")
+![Program screenshot](https://www.dropbox.com/s/ffzugz03xiq4yld/Screenshot-v2.0.png?raw=1 "Program screenshot")
